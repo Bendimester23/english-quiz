@@ -1,18 +1,24 @@
 <template>
   <div class="quiz">
     <div class="countdown" v-if="isCool && !isAnn">
-      <h1>{{ isCool ? countdown + 3 : countdown }}</h1>
+      <h1>{{ countdown }}</h1>
       <h3>{{ facts[answerId] }}</h3>
     </div>
     <div class="question" v-if="!isCool && !isAnn">
+      <div class="heading">
+        <h1>{{ cooldown }}</h1>
+        <v-progress-linear :value="100 - (cooldown * 10)"></v-progress-linear>
+      </div>
       <h1>{{ title }}</h1>
       <div class="btns">
-        <v-btn
+        <div class="btn" 
           v-bind:key="answer"
-          v-for="answer in answers"
+          v-for="answer in answers">
+          <v-btn
           v-on:click="click(answer)"
           >{{ answer }}</v-btn
         >
+        </div>
       </div>
     </div>
     <div class="annuancement" v-if="isAnn">
@@ -28,11 +34,10 @@ export default Vue.extend({
   name: `Quiz`,
   data: () => ({
     isCool: false,
-    isPre: false,
     title: ``,
     answers: [],
     facts: [],
-    countdown: 10,
+    countdown: 3,
     answerId: 0,
     isAnn: false,
     annNum: 0
@@ -56,8 +61,16 @@ export default Vue.extend({
       switch (data) {
         case 0:
           this.isCool = true;
-          this.isPre = true;
           break;
+        case 1:
+          this.isCool = false;
+          break
+        case 2:
+          window.location.assign(
+          this.$router.resolve({
+            path: `/end`,
+          }).href
+        );
       }
     });
     this.sockets.subscribe(`annuance`, (data: number) => {
@@ -93,18 +106,29 @@ export default Vue.extend({
     this.sockets.unsubscribe(`annuance`);
     this.sockets.unsubscribe(`changestate`);
   },
+  methods: {
+    click(answ: string) {
+      console.log(answ);
+    }
+  }
 });
 </script>
 
 <style lang="scss">
 .quiz {
   display: flex;
-  background-color: #222f3e;
+  background-image: linear-gradient(to bottom right,#222f3e, #1c2836);
   color: #fff;
   height: 100%;
   width: 100%;
   flex-direction: column;
   text-align: center;
   justify-content: center;
+  .btns {
+    display: flex;
+    .btn {
+      margin: 15px;
+    }
+  }
 }
 </style>

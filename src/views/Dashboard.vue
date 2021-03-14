@@ -5,6 +5,7 @@
       <v-btn v-on:click="open()" color="#1dd1a1">Open</v-btn>
       <v-btn v-on:click="start()" color="#1dd1a1">Start</v-btn>
       <v-btn v-on:click="stop()" color="#1dd1a1">Stop</v-btn>
+      <v-btn v-on:click="end()" color="#1dd1a1">End</v-btn>
     </div>
     <div class="players">
         Waiting: {{waitUsers}}<br>
@@ -32,18 +33,28 @@ export default Vue.extend({
       this.$socket.emit(`setquizstate`, {
         isStarted: true,
         isReady: false,
+        isEnded: false
       });
     },
     start() {
       this.$socket.emit(`setquizstate`, {
         isStarted: true,
         isReady: true,
+        isEnded: false
       });
     },
     stop() {
       this.$socket.emit(`setquizstate`, {
         isStarted: false,
         isReady: false,
+        isEnded: false
+      });
+    },
+    end() {
+      this.$socket.emit(`setquizstate`, {
+        isStarted: true,
+        isReady: true,
+        isEnded: true
       });
     },
     kick(player: string) {
@@ -69,7 +80,7 @@ export default Vue.extend({
 
 <style lang="scss">
 .dashboard {
-  background-color: #222f3e;
+  background-image: linear-gradient(to bottom right,#222f3e, #1c2836);
   color: #fff;
   width: 100%;
   height: 100%;

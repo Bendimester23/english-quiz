@@ -82,7 +82,7 @@ export default Vue.extend({
 
 <style lang="scss">
 .setname {
-  background-color: #222f3e;
+  background-image: linear-gradient(to bottom right,#222f3e, #1c2836);
   color: #fff;
   display: flex;
   flex-direction: column;
