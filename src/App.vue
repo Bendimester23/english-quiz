@@ -1,9 +1,7 @@
 <template>
-  <v-app>
+  <v-app class="app">
     <v-main>
-      <div class="appMain">
-        <h1>The quiz haven't started yet.</h1>
-      </div>
+      <router-view></router-view>
     </v-main>
   </v-app>
 </template>
@@ -16,24 +14,23 @@ export default Vue.extend({
 
   components: {
   },
-
-  data: () => ({
-    //
-  }),
+  beforeDestroy: function() {
+    this.$socket.emit(`disconnect`, {})
+  }
 });
 </script>
 
 <style lang="scss">
-* {
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+.app {
   background-color: #222f3e;
   color: #fff;
+  margin: 0px;
+  padding: 0px;
 }
-.appMain {
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  justify-content: center;
-  text-align: center;
-  height: 100%;
+
+* {
+  font-family: 'Nunito', sans-serif;
 }
 </style>
