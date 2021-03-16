@@ -52,7 +52,7 @@ export default Vue.extend({
     this.sockets.subscribe(`update_players`, (data) => {
       this.players = data;
     });
-    this.sockets.subscribe(`changestate`, (data: any) => {
+    this.sockets.subscribe(`changestate`, (data: any): void => {
       console.log(`State changed. State: ${JSON.stringify(data)}`);
       if (!data.isStarted) {
         window.location.assign(

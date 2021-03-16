@@ -33,8 +33,4 @@ export default Vue.extend({
 * {
   font-family: 'Nunito', sans-serif;
 }
-
-::-webkit-scrollbar {
-  display: none;
-}
 </style>

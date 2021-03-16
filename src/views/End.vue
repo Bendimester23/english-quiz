@@ -1,6 +1,12 @@
 <template>
   <div class="end">
     <h1>The quiz ended!</h1>
+    <h2>Leaderboard:</h2>
+    <ol>
+      <li v-for="u in top" v-bind:key="u">
+        {{u.name}}: {{u.points}}pts
+      </li>
+    </ol>
   </div>
 </template>
 
@@ -8,6 +14,9 @@
 import Vue from "vue";
 export default Vue.extend({
   name: `End`,
+  data: () => ({
+    top: []
+  }),
   mounted() {
     this.sockets.subscribe(`changestate`, (data) => {
       if (!data.isEnded) {
@@ -32,10 +41,14 @@ export default Vue.extend({
         }
       }
     });
+    this.sockets.subscribe(`top`, (data) => {
+      this.top = data
+    })
     this.$socket.emit(`checkstate`, {});
   },
   beforeDestroy() {
     this.sockets.unsubscribe(`changestate`);
+    this.sockets.unsubscribe(`top`)
   },
 });
 </script>
