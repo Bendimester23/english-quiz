@@ -9,7 +9,7 @@ Vue.config.productionTip = false
 
 Vue.use(new VueSocketIO({
   debug: true,
-  connection: 'https://wss.edwardbot.tk:4000',
+  connection: 'http://edwardbot.tk:4000',
   vuex: {
       store,
       actionPrefix: 'SOCKET_',
