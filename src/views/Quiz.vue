@@ -24,7 +24,7 @@
             }}</v-btn>
           </div>
         </div>
-        <v-spacer></v-spacer>
+        <div class="spacer"></div>
         <div class="col">
           <div class="btn">
             <v-btn color="#1dd1a1" height="100%" @click="answ(2)">{{
@@ -39,7 +39,7 @@
         </div>
       </div>
     </div>
-    <div class="annuancement" v-if="isAnn">
+    <div class="announcement" v-if="isAnn">
       <h1>Question {{ annNum }}</h1>
     </div>
   </div>
@@ -161,7 +161,7 @@ export default Vue.extend({
   text-align: center;
   justify-content: flex-start;
   margin: 0px;
-  .annuancement {
+  .announcement {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -187,6 +187,7 @@ export default Vue.extend({
       margin: 10px;
       .spacer {
         max-width: 20%;
+        flex-grow: 50;
       }
       .col {
         display: flex;
@@ -203,6 +204,30 @@ export default Vue.extend({
             color: #000;
             font-size: 20px;
             font-weight: 800;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .quiz {
+    .question {
+      .btns {
+        flex-direction: column !important;
+        .spacer {
+          display: none !important;
+        }
+        .col {
+          margin-top: 0px;
+          padding-top: 0px;
+          margin-bottom: 0px;
+          padding-bottom: 0px;
+          width: 100%;
+          justify-content: flex-start;
+          .btn {
+            height: 50%;
           }
         }
       }
